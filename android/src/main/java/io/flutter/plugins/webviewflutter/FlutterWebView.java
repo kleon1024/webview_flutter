@@ -34,8 +34,22 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   FlutterWebView(Context context, BinaryMessenger messenger, int id, Map<String, Object> params) {
     webView = new WebView(context);
     platformThreadHandler = new Handler(context.getMainLooper());
+
+    // Kleon
+    webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+    WebSettings settings = webView.getSettings();
+    settings.setJavaScriptEnabled(true);
+    settings.setAllowFileAccess(true);
+    settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+    settings.setDomStorageEnabled(true);
+    settings.setUseWideViewPort(true);
+    settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+    settings.setLoadWithOverviewMode(true);
+    settings.setJavaScriptCanOpenWindowsAutomatically(true);
+    settings.setDatabaseEnabled(true);
+
     // Allow local storage.
-    webView.getSettings().setDomStorageEnabled(true);
+//    webView.getSettings().setDomStorageEnabled(true);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
     }
